@@ -1,0 +1,1308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Sankalp Coffee — Every Sip Tells a Story</title>
+
+  <!-- Google Fonts: Playfair Display (display) + Poppins (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+
+  <!-- =========================================================
+       STYLES
+  ========================================================= -->
+  <style>
+    /* ── CSS VARIABLES ─────────────────────────────────────── */
+    :root {
+      --espresso:  #2C1A0E;
+      --roast:     #4A2C17;
+      --caramel:   #A0522D;
+      --latte:     #C8956C;
+      --cream:     #F5ECD7;
+      --foam:      #FBF6EE;
+      --gold:      #D4A843;
+      --text-dark: #1E1209;
+      --text-mid:  #5C3D1E;
+      --text-light:#8C6544;
+      --nav-h:     72px;
+      --radius:    14px;
+      --shadow-sm: 0 2px 12px rgba(44,26,14,.10);
+      --shadow-md: 0 8px 32px rgba(44,26,14,.18);
+      --shadow-lg: 0 20px 60px rgba(44,26,14,.25);
+      --transition: .35s cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ── RESET ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--foam);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
+    img { display: block; max-width: 100%; }
+    a  { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    button { cursor: pointer; font-family: inherit; }
+
+    /* ── SCROLLBAR ─────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--cream); }
+    ::-webkit-scrollbar-thumb { background: var(--caramel); border-radius: 3px; }
+
+    /* ── UTILITY ───────────────────────────────────────────── */
+    .section-tag {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--caramel);
+      margin-bottom: .6rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--espresso);
+      line-height: 1.2;
+    }
+    .section-sub {
+      color: var(--text-light);
+      max-width: 540px;
+      line-height: 1.8;
+      font-size: .95rem;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: .55rem;
+      padding: .78rem 1.9rem;
+      border-radius: 60px;
+      font-size: .9rem;
+      font-weight: 500;
+      border: 2px solid transparent;
+      transition: var(--transition);
+    }
+    .btn-primary {
+      background: var(--espresso);
+      color: var(--cream);
+      box-shadow: 0 4px 18px rgba(44,26,14,.35);
+    }
+    .btn-primary:hover {
+      background: var(--roast);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(44,26,14,.45);
+    }
+    .btn-outline {
+      background: transparent;
+      color: var(--espresso);
+      border-color: var(--espresso);
+    }
+    .btn-outline:hover {
+      background: var(--espresso);
+      color: var(--cream);
+      transform: translateY(-2px);
+    }
+    .container { width: min(1200px, 92vw); margin: 0 auto; }
+
+    /* ── NAV ───────────────────────────────────────────────── */
+    #navbar {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      height: var(--nav-h);
+      display: flex; align-items: center;
+      background: rgba(251,246,238,.92);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid rgba(160,82,45,.12);
+      transition: box-shadow var(--transition);
+    }
+    #navbar.scrolled { box-shadow: var(--shadow-md); }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+    }
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.55rem;
+      color: var(--espresso);
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .logo-icon { font-size: 1.7rem; }
+    .logo span { color: var(--caramel); }
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .nav-links a {
+      font-size: .88rem;
+      font-weight: 500;
+      color: var(--text-mid);
+      position: relative;
+      padding-bottom: 3px;
+      transition: color var(--transition);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: 0; left: 0;
+      width: 0; height: 2px;
+      background: var(--caramel);
+      transition: width var(--transition);
+    }
+    .nav-links a:hover, .nav-links a.active { color: var(--espresso); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-cta {
+      padding: .55rem 1.4rem !important;
+      background: var(--espresso);
+      color: var(--cream) !important;
+      border-radius: 60px;
+    }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--caramel) !important; }
+
+    /* hamburger */
+    .hamburger {
+      display: none; flex-direction: column; gap: 5px;
+      background: none; border: none; padding: 6px;
+    }
+    .hamburger span {
+      display: block; width: 24px; height: 2px;
+      background: var(--espresso);
+      transition: var(--transition);
+    }
+    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .hamburger.open span:nth-child(2) { opacity: 0; }
+    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .mobile-menu {
+      display: none; flex-direction: column; gap: 0;
+      position: fixed; top: var(--nav-h); left: 0; right: 0;
+      background: var(--foam);
+      border-bottom: 1px solid rgba(160,82,45,.15);
+      z-index: 999; padding: 1rem 0;
+      box-shadow: var(--shadow-md);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      padding: .85rem 1.8rem;
+      font-weight: 500; color: var(--text-mid);
+      border-bottom: 1px solid rgba(160,82,45,.08);
+      transition: background var(--transition), color var(--transition);
+    }
+    .mobile-menu a:hover { background: var(--cream); color: var(--espresso); }
+
+    /* ── HERO ──────────────────────────────────────────────── */
+    #home {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding-top: var(--nav-h);
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background:
+        linear-gradient(135deg, rgba(44,26,14,.75) 0%, rgba(74,44,23,.5) 60%, transparent 100%),
+        url('https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1600&q=80') center/cover no-repeat;
+    }
+    /* subtle grain overlay */
+    .hero-bg::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity: .4;
+    }
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 640px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: rgba(212,168,67,.18);
+      border: 1px solid rgba(212,168,67,.45);
+      color: var(--gold);
+      font-size: .75rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: .45rem 1rem;
+      border-radius: 60px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 1.4rem;
+      animation: fadeUp .7s ease both;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5rem);
+      color: #fff;
+      line-height: 1.1;
+      animation: fadeUp .7s .15s ease both;
+    }
+    .hero-title em { color: var(--gold); font-style: italic; }
+    .hero-sub {
+      color: rgba(255,255,255,.82);
+      font-size: 1.08rem; line-height: 1.8;
+      margin: 1.4rem 0 2.2rem;
+      font-weight: 300;
+      animation: fadeUp .7s .3s ease both;
+    }
+    .hero-actions {
+      display: flex; flex-wrap: wrap; gap: 1rem;
+      animation: fadeUp .7s .45s ease both;
+    }
+    .hero-actions .btn-outline {
+      color: #fff; border-color: rgba(255,255,255,.6);
+    }
+    .hero-actions .btn-outline:hover { background: rgba(255,255,255,.15); }
+
+    /* scroll cue */
+    .scroll-cue {
+      position: absolute; bottom: 2.5rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .4rem;
+      color: rgba(255,255,255,.6); font-size: .7rem; letter-spacing: .1em;
+      animation: fadeUp .7s .6s ease both;
+    }
+    .scroll-cue-line {
+      width: 1px; height: 48px;
+      background: linear-gradient(to bottom, transparent, rgba(255,255,255,.5));
+      animation: scrollLine 1.6s ease-in-out infinite;
+    }
+    @keyframes scrollLine {
+      0%,100%{ transform: scaleY(1) translateY(0); opacity:1; }
+      50%    { transform: scaleY(.6) translateY(8px); opacity:.5; }
+    }
+
+    /* hero stats strip */
+    .hero-stats {
+      position: absolute; bottom: 0; right: 0; z-index: 2;
+      display: flex;
+      background: rgba(44,26,14,.75);
+      backdrop-filter: blur(16px);
+      border-top-left-radius: var(--radius);
+    }
+    .stat-item {
+      padding: 1.4rem 2rem;
+      text-align: center;
+      border-right: 1px solid rgba(255,255,255,.1);
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem; color: var(--gold); display: block;
+    }
+    .stat-lbl { font-size: .72rem; color: rgba(255,255,255,.65); letter-spacing: .08em; }
+
+    /* ── ABOUT ─────────────────────────────────────────────── */
+    #about { padding: 7rem 0; background: var(--foam); }
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .about-img-wrap {
+      position: relative;
+    }
+    .about-img-main {
+      width: 100%; border-radius: var(--radius);
+      aspect-ratio: 4/5; object-fit: cover;
+      box-shadow: var(--shadow-lg);
+    }
+    .about-img-accent {
+      position: absolute;
+      bottom: -2rem; right: -2rem;
+      width: 48%;
+      border-radius: var(--radius);
+      border: 6px solid var(--foam);
+      box-shadow: var(--shadow-md);
+      aspect-ratio: 1; object-fit: cover;
+    }
+    .about-badge {
+      position: absolute; top: 1.5rem; left: -1.5rem;
+      background: var(--gold);
+      color: var(--espresso);
+      font-family: 'Playfair Display', serif;
+      font-size: .95rem; font-weight: 700;
+      padding: .9rem 1.3rem;
+      border-radius: var(--radius);
+      line-height: 1.3;
+      box-shadow: var(--shadow-md);
+    }
+    .about-text { padding-bottom: 1rem; }
+    .about-text .section-sub { margin-top: 1rem; }
+    .about-features {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2rem;
+    }
+    .feat-card {
+      background: var(--cream);
+      border-radius: var(--radius);
+      padding: 1.1rem 1.2rem;
+      display: flex; align-items: flex-start; gap: .8rem;
+      transition: var(--transition);
+    }
+    .feat-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-sm); }
+    .feat-icon { font-size: 1.5rem; }
+    .feat-title { font-size: .88rem; font-weight: 600; color: var(--espresso); }
+    .feat-desc  { font-size: .78rem; color: var(--text-light); margin-top: .2rem; line-height: 1.5; }
+
+    /* ── MENU ──────────────────────────────────────────────── */
+    #menu { padding: 7rem 0; background: var(--cream); }
+    .menu-head { text-align: center; margin-bottom: 3rem; }
+    .menu-head .section-sub { margin: .8rem auto 0; }
+
+    /* filter tabs */
+    .menu-filters {
+      display: flex; justify-content: center; flex-wrap: wrap;
+      gap: .7rem; margin-bottom: 3rem;
+    }
+    .filter-btn {
+      padding: .55rem 1.5rem;
+      border-radius: 60px;
+      border: 2px solid var(--latte);
+      background: transparent;
+      color: var(--text-mid);
+      font-size: .85rem; font-weight: 500;
+      transition: var(--transition);
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--espresso);
+      border-color: var(--espresso);
+      color: var(--cream);
+      box-shadow: 0 4px 18px rgba(44,26,14,.3);
+    }
+
+    /* grid */
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.8rem;
+    }
+    .menu-card {
+      background: var(--foam);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      transition: var(--transition);
+      position: relative;
+    }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-md); }
+    .menu-card-img {
+      width: 100%; aspect-ratio: 4/3; object-fit: cover;
+      transition: transform .5s ease;
+    }
+    .menu-card:hover .menu-card-img { transform: scale(1.05); }
+    .menu-card-img-wrap { overflow: hidden; }
+    .menu-tag {
+      position: absolute; top: 1rem; left: 1rem;
+      background: var(--espresso);
+      color: var(--cream);
+      font-size: .68rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase;
+      padding: .3rem .75rem; border-radius: 60px;
+    }
+    .menu-card-body { padding: 1.3rem 1.4rem 1.6rem; }
+    .menu-card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.18rem; color: var(--espresso);
+      margin-bottom: .35rem;
+    }
+    .menu-card-desc { font-size: .82rem; color: var(--text-light); line-height: 1.6; }
+    .menu-card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 1rem;
+    }
+    .menu-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; color: var(--caramel); font-weight: 700;
+    }
+    .add-btn {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--espresso); color: var(--cream);
+      border: none; font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      transition: var(--transition);
+    }
+    .add-btn:hover { background: var(--caramel); transform: scale(1.1); }
+
+    /* ── GALLERY ────────────────────────────────────────────── */
+    #gallery { padding: 7rem 0; background: var(--foam); }
+    .gallery-head { text-align: center; margin-bottom: 3rem; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 220px;
+      gap: 1rem;
+    }
+    .g-item {
+      overflow: hidden; border-radius: var(--radius);
+      cursor: pointer; position: relative;
+    }
+    .g-item:nth-child(1) { grid-column: span 2; grid-row: span 2; }
+    .g-item:nth-child(4) { grid-column: span 2; }
+    .g-item img {
+      width: 100%; height: 100%; object-fit: cover;
+      transition: transform .55s ease;
+    }
+    .g-item:hover img { transform: scale(1.07); }
+    .g-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(44,26,14,.6) 0%, transparent 60%);
+      opacity: 0; transition: opacity var(--transition);
+      display: flex; align-items: flex-end; padding: 1.2rem;
+      color: var(--cream); font-size: .85rem; font-weight: 500;
+    }
+    .g-item:hover .g-overlay { opacity: 1; }
+
+    /* ── CONTACT ────────────────────────────────────────────── */
+    #contact { padding: 7rem 0; background: var(--cream); }
+    .contact-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start;
+    }
+    .contact-info .section-sub { margin-top: .8rem; }
+    .contact-details { margin-top: 2.2rem; display: flex; flex-direction: column; gap: 1.2rem; }
+    .c-detail {
+      display: flex; align-items: flex-start; gap: 1rem;
+      background: var(--foam); border-radius: var(--radius);
+      padding: 1rem 1.2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .c-icon {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--espresso); color: var(--cream);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .c-label { font-size: .75rem; color: var(--text-light); text-transform: uppercase; letter-spacing: .08em; }
+    .c-value { font-size: .9rem; color: var(--espresso); font-weight: 500; margin-top: .15rem; }
+
+    /* form */
+    .contact-form-wrap {
+      background: var(--foam);
+      border-radius: calc(var(--radius) * 1.5);
+      padding: 2.2rem 2rem;
+      box-shadow: var(--shadow-md);
+    }
+    .form-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--espresso); margin-bottom: 1.6rem;
+    }
+    .form-group { margin-bottom: 1.2rem; }
+    .form-label {
+      display: block; font-size: .8rem; font-weight: 600;
+      color: var(--text-mid); margin-bottom: .45rem; letter-spacing: .05em;
+    }
+    .form-input {
+      width: 100%; padding: .8rem 1rem;
+      border: 2px solid rgba(160,82,45,.2);
+      border-radius: 10px;
+      background: var(--cream);
+      font-family: inherit; font-size: .9rem; color: var(--text-dark);
+      transition: border-color var(--transition), box-shadow var(--transition);
+      outline: none;
+    }
+    .form-input:focus {
+      border-color: var(--caramel);
+      box-shadow: 0 0 0 4px rgba(160,82,45,.1);
+    }
+    .form-input.error { border-color: #c0392b; }
+    textarea.form-input { resize: vertical; min-height: 110px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-error { font-size: .76rem; color: #c0392b; margin-top: .3rem; display: none; }
+    .form-error.show { display: block; }
+    .form-success {
+      display: none; text-align: center; padding: 1.5rem;
+      color: #27ae60; font-size: .95rem;
+    }
+    .form-success.show { display: block; }
+    .submit-btn {
+      width: 100%; padding: .9rem;
+      background: var(--espresso); color: var(--cream);
+      border: none; border-radius: 10px;
+      font-size: .95rem; font-weight: 600;
+      transition: var(--transition);
+    }
+    .submit-btn:hover {
+      background: var(--caramel);
+      box-shadow: 0 6px 22px rgba(44,26,14,.35);
+      transform: translateY(-1px);
+    }
+
+    /* ── MAP ────────────────────────────────────────────────── */
+    #location { background: var(--foam); }
+    .map-header { text-align: center; padding: 5rem 0 2rem; }
+    .map-wrap {
+      width: 100%; height: 420px;
+      border-top: 4px solid var(--caramel);
+      position: relative;
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; }
+    .map-pin-label {
+      position: absolute; top: 20px; left: 50%; transform: translateX(-50%);
+      background: var(--espresso); color: var(--cream);
+      font-size: .82rem; font-weight: 500;
+      padding: .55rem 1.2rem; border-radius: 60px;
+      box-shadow: var(--shadow-sm); white-space: nowrap;
+      z-index: 2;
+    }
+
+    /* ── FOOTER ─────────────────────────────────────────────── */
+    footer {
+      background: var(--espresso); color: rgba(255,255,255,.75);
+      padding: 4.5rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 3rem; padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-brand .logo { color: var(--cream); margin-bottom: 1rem; }
+    .footer-brand p {
+      font-size: .85rem; line-height: 1.8;
+      color: rgba(255,255,255,.6); max-width: 280px;
+    }
+    .social-links { display: flex; gap: .8rem; margin-top: 1.5rem; }
+    .social-link {
+      width: 38px; height: 38px; border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1rem; transition: var(--transition);
+      color: rgba(255,255,255,.8);
+    }
+    .social-link:hover {
+      background: var(--caramel); color: #fff;
+      transform: translateY(-2px);
+    }
+    .footer-col h4 {
+      font-size: .85rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.2rem;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: .65rem; }
+    .footer-col li a {
+      font-size: .85rem; color: rgba(255,255,255,.6);
+      transition: color var(--transition);
+    }
+    .footer-col li a:hover { color: var(--cream); }
+    .footer-bottom {
+      padding-top: 2rem;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 1rem;
+      font-size: .8rem; color: rgba(255,255,255,.4);
+    }
+
+    /* ── ANIMATIONS ─────────────────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity:0; transform: translateY(24px); }
+      to   { opacity:1; transform: translateY(0); }
+    }
+    .reveal {
+      opacity: 0; transform: translateY(30px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    @media (max-width: 1024px) {
+      .gallery-grid { grid-template-columns: repeat(3,1fr); }
+      .g-item:nth-child(4) { grid-column: span 1; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .about-img-wrap { max-width: 480px; margin: 0 auto; }
+      .about-img-accent { right: 0; }
+      .about-features { grid-template-columns: 1fr; }
+      .hero-stats { position: static; border-radius: 0; width: 100%; margin-top: 2rem; justify-content: center; }
+      .stat-item { flex: 1; }
+      .gallery-grid { grid-template-columns: repeat(2,1fr); grid-auto-rows: 180px; }
+      .g-item:nth-child(1) { grid-column: span 2; }
+      .form-row { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 500px) {
+      .gallery-grid { grid-template-columns: 1fr; grid-auto-rows: 220px; }
+      .g-item:nth-child(1) { grid-column: span 1; grid-row: span 1; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======================================================
+       NAVIGATION
+  ====================================================== -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <!-- Logo -->
+      <a href="#home" class="logo">
+        <span class="logo-icon">☕</span>
+        Sankalp <span>Coffee</span>
+      </a>
+
+      <!-- Desktop links -->
+      <ul class="nav-links">
+        <li><a href="#home"    class="active">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#menu">Menu</a></li>
+        <li><a href="#gallery">Gallery</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#menu" class="nav-cta btn">Order Now</a></li>
+      </ul>
+
+      <!-- Mobile hamburger -->
+      <button class="hamburger" id="menuToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#home">Home</a>
+    <a href="#about">About</a>
+    <a href="#menu">Menu</a>
+    <a href="#gallery">Gallery</a>
+    <a href="#contact">Contact</a>
+    <a href="#location">Location</a>
+  </div>
+
+  <!-- ======================================================
+       HERO SECTION
+  ====================================================== -->
+  <section id="home">
+    <div class="hero-bg"></div>
+
+    <div class="container">
+      <div class="hero-content">
+        <div class="hero-badge">☕ &nbsp; Est. 2018 · Pune, India</div>
+        <h1 class="hero-title">
+          Every Sip<br/>
+          Tells a <em>Story.</em>
+        </h1>
+        <p class="hero-sub">
+          Handcrafted brews, warm corners, and the aroma of freshly roasted beans —
+          Sankalp Coffee is your perfect pause in a busy day.
+        </p>
+        <div class="hero-actions">
+          <a href="#menu" class="btn btn-primary">Explore Our Menu ↓</a>
+          <a href="#about" class="btn btn-outline">Our Story</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats strip -->
+    <div class="hero-stats">
+      <div class="stat-item">
+        <span class="stat-num">12+</span>
+        <span class="stat-lbl">Brew Varieties</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">6K+</span>
+        <span class="stat-lbl">Happy Guests</span>
+      </div>
+      <div class="stat-item">
+        <span class="stat-num">4.9★</span>
+        <span class="stat-lbl">Google Rating</span>
+      </div>
+    </div>
+
+    <!-- Scroll cue -->
+    <div class="scroll-cue">
+      <span>scroll</span>
+      <div class="scroll-cue-line"></div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       ABOUT SECTION
+  ====================================================== -->
+  <section id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Images -->
+        <div class="about-img-wrap reveal">
+          <img
+            src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=800&q=80"
+            alt="Barista at work"
+            class="about-img-main"
+          />
+          <img
+            src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80"
+            alt="Coffee detail"
+            class="about-img-accent"
+          />
+          <div class="about-badge">6 Years<br/>of Craft</div>
+        </div>
+
+        <!-- Text -->
+        <div class="about-text reveal">
+          <span class="section-tag">Our Story</span>
+          <h2 class="section-title">Born from a Love<br/>of <em style="font-style:italic;color:var(--caramel)">Perfect Coffee</em></h2>
+          <p class="section-sub">
+            Sankalp Coffee started in 2018 from a tiny corner in Pune with one espresso machine,
+            two friends, and an unwavering belief that great coffee changes moods — and maybe even lives.
+            Today, we source single-origin beans from farms across India and craft every cup with deliberate
+            care, because you deserve more than average.
+          </p>
+
+          <div class="about-features">
+            <div class="feat-card">
+              <span class="feat-icon">🌿</span>
+              <div>
+                <div class="feat-title">Ethically Sourced</div>
+                <div class="feat-desc">Beans from certified farms in Coorg, Wayanad &amp; Araku</div>
+              </div>
+            </div>
+            <div class="feat-card">
+              <span class="feat-icon">🔥</span>
+              <div>
+                <div class="feat-title">In-House Roasting</div>
+                <div class="feat-desc">Roasted fresh every morning in small batches</div>
+              </div>
+            </div>
+            <div class="feat-card">
+              <span class="feat-icon">🧑‍🍳</span>
+              <div>
+                <div class="feat-title">Expert Baristas</div>
+                <div class="feat-desc">SCA-certified team with 5+ years of experience</div>
+              </div>
+            </div>
+            <div class="feat-card">
+              <span class="feat-icon">🪴</span>
+              <div>
+                <div class="feat-title">Cosy Atmosphere</div>
+                <div class="feat-desc">A quiet nook designed for work, reads &amp; catch-ups</div>
+              </div>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;">
+            <a href="#menu" class="btn btn-primary">View Full Menu</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       MENU SECTION
+  ====================================================== -->
+  <section id="menu">
+    <div class="container">
+      <div class="menu-head reveal">
+        <span class="section-tag">What We Brew</span>
+        <h2 class="section-title">Our Menu</h2>
+        <p class="section-sub">
+          From bold single-origin espressos to creamy lattes and homemade bites —
+          there's something for every palate.
+        </p>
+      </div>
+
+      <!-- Filter Tabs -->
+      <div class="menu-filters reveal">
+        <button class="filter-btn active" data-filter="all">All Items</button>
+        <button class="filter-btn" data-filter="coffee">☕ Coffee</button>
+        <button class="filter-btn" data-filter="tea">🍵 Tea</button>
+        <button class="filter-btn" data-filter="snacks">🥪 Snacks</button>
+      </div>
+
+      <!-- Cards -->
+      <div class="menu-grid" id="menuGrid">
+        <!-- Coffee items -->
+        <div class="menu-card" data-category="coffee">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1510591509098-f4fdc6d0ff04?w=600&q=80" alt="Espresso" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Coffee</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Classic Espresso</div>
+            <div class="menu-card-desc">Pure, concentrated shot of our house-roast blend with a rich golden crema.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹120</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="coffee">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&q=80" alt="Cappuccino" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Coffee</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Cappuccino</div>
+            <div class="menu-card-desc">Velvety microfoam, bold espresso, and the perfect balance of milk — a café classic.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹175</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="coffee">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1561047029-3000c68339ca?w=600&q=80" alt="Latte" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Coffee</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Caramel Latte</div>
+            <div class="menu-card-desc">Smooth espresso with steamed milk, drizzled with homemade caramel sauce.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹200</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="coffee">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1461023058943-07fcbe16d735?w=600&q=80" alt="Cold Coffee" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Coffee</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Cold Brew Coffee</div>
+            <div class="menu-card-desc">Steeped 18 hours in cold water for a low-acid, silky smooth iced coffee experience.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹220</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tea items -->
+        <div class="menu-card" data-category="tea">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=600&q=80" alt="Matcha" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Tea</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Matcha Latte</div>
+            <div class="menu-card-desc">Ceremonial grade Japanese matcha whisked with steamed oat milk. Earthy and soothing.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹220</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="tea">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1571934811356-5cc061b6821f?w=600&q=80" alt="Masala Chai" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Tea</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Masala Chai</div>
+            <div class="menu-card-desc">Traditional Indian spiced tea simmered with ginger, cardamom, clove, and full-cream milk.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹90</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Snacks items -->
+        <div class="menu-card" data-category="snacks">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1528736235302-52922df5c122?w=600&q=80" alt="Sandwich" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Snacks</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Club Sandwich</div>
+            <div class="menu-card-desc">Triple-decker with grilled chicken, cheddar, fresh veggies, and honey mustard spread.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹280</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="snacks">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&q=80" alt="Cake" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Snacks</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Chocolate Mud Cake</div>
+            <div class="menu-card-desc">Rich, dense chocolate cake with a molten fudge centre and a dusting of cocoa.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹240</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="menu-card" data-category="snacks">
+          <div class="menu-card-img-wrap">
+            <img src="https://images.unsplash.com/photo-1504113888839-1c8eb50233d3?w=600&q=80" alt="Croissant" class="menu-card-img"/>
+          </div>
+          <span class="menu-tag">Snacks</span>
+          <div class="menu-card-body">
+            <div class="menu-card-name">Butter Croissant</div>
+            <div class="menu-card-desc">Flaky, buttery layers baked fresh in-house every morning. Best with a cappuccino.</div>
+            <div class="menu-card-footer">
+              <span class="menu-price">₹160</span>
+              <button class="add-btn" title="Add to cart">+</button>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /menu-grid -->
+    </div>
+  </section>
+
+  <!-- ======================================================
+       GALLERY SECTION
+  ====================================================== -->
+  <section id="gallery">
+    <div class="container">
+      <div class="gallery-head reveal">
+        <span class="section-tag">Inside Sankalp</span>
+        <h2 class="section-title">A Glimpse of Our World</h2>
+      </div>
+
+      <div class="gallery-grid reveal">
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=900&q=80" alt="Café interior"/>
+          <div class="g-overlay">Our Cosy Corner</div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&q=80" alt="Barista"/>
+          <div class="g-overlay">Art of the Pour</div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=600&q=80" alt="Latte art"/>
+          <div class="g-overlay">Latte Art</div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80" alt="Coffee beans"/>
+          <div class="g-overlay">Single-Origin Beans</div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1445116572660-236099ec97a0?w=600&q=80" alt="Coffee shop"/>
+          <div class="g-overlay">Morning Rituals</div>
+        </div>
+        <div class="g-item">
+          <img src="https://images.unsplash.com/photo-1525480122447-64809d765ec4?w=600&q=80" alt="Pastries"/>
+          <div class="g-overlay">Fresh Bakes Daily</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       CONTACT SECTION
+  ====================================================== -->
+  <section id="contact">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Left: info -->
+        <div class="reveal">
+          <span class="section-tag">Get in Touch</span>
+          <h2 class="section-title">We'd Love to<br/>Hear from You</h2>
+          <p class="section-sub">
+            Have a question, a catering inquiry, or just want to say hi?
+            Drop us a message and our team will respond within 24 hours.
+          </p>
+
+          <div class="contact-details">
+            <div class="c-detail">
+              <div class="c-icon">📍</div>
+              <div>
+                <div class="c-label">Address</div>
+                <div class="c-value">12, FC Road, Shivajinagar, Pune – 411004</div>
+              </div>
+            </div>
+            <div class="c-detail">
+              <div class="c-icon">📞</div>
+              <div>
+                <div class="c-label">Phone</div>
+                <div class="c-value">+91 98765 43210</div>
+              </div>
+            </div>
+            <div class="c-detail">
+              <div class="c-icon">📧</div>
+              <div>
+                <div class="c-label">Email</div>
+                <div class="c-value">hello@sankalpcoffee.in</div>
+              </div>
+            </div>
+            <div class="c-detail">
+              <div class="c-icon">🕐</div>
+              <div>
+                <div class="c-label">Hours</div>
+                <div class="c-value">Mon – Sun: 7:30 AM – 10:00 PM</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: form -->
+        <div class="contact-form-wrap reveal">
+          <div class="form-title">Send a Message</div>
+
+          <form id="contactForm" novalidate>
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label" for="fname">First Name *</label>
+                <input class="form-input" type="text" id="fname" placeholder="Rahul"/>
+                <span class="form-error" id="fnameErr">Please enter your first name.</span>
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="lname">Last Name</label>
+                <input class="form-input" type="text" id="lname" placeholder="Sharma"/>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="email">Email Address *</label>
+              <input class="form-input" type="email" id="email" placeholder="rahul@example.com"/>
+              <span class="form-error" id="emailErr">Please enter a valid email.</span>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="subject">Subject</label>
+              <input class="form-input" type="text" id="subject" placeholder="Table reservation, catering…"/>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="message">Message *</label>
+              <textarea class="form-input" id="message" placeholder="Tell us how we can help you…"></textarea>
+              <span class="form-error" id="msgErr">Please enter your message.</span>
+            </div>
+
+            <button type="submit" class="submit-btn">Send Message ✉</button>
+            <div class="form-success" id="formSuccess">
+              ☕ Thank you! We'll get back to you soon.
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       LOCATION / MAP
+  ====================================================== -->
+  <section id="location">
+    <div class="map-header reveal">
+      <span class="section-tag">Find Us</span>
+      <h2 class="section-title" style="margin-top:.3rem;">Visit Sankalp Coffee</h2>
+    </div>
+    <div class="map-wrap">
+      <div class="map-pin-label">📍 Sankalp Coffee, FC Road, Pune</div>
+      <!-- Embedded map: FC Road, Shivajinagar, Pune -->
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3782.3736706853924!2d73.83959611489553!3d18.524809687390643!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc2bf7f8e0d13f7%3A0xf7a3e0c7c63e9f2!2sFC%20Road%2C%20Shivajinagar%2C%20Pune%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1680000000000!5m2!1sen!2sin"
+        allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+        title="Sankalp Coffee Location">
+      </iframe>
+    </div>
+  </section>
+
+  <!-- ======================================================
+       FOOTER
+  ====================================================== -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Brand column -->
+        <div class="footer-brand">
+          <div class="logo">☕ Sankalp <span>Coffee</span></div>
+          <p>
+            A labour of love rooted in Pune. We believe great coffee is more than a beverage —
+            it's a moment of stillness in your day.
+          </p>
+          <div class="social-links">
+            <a href="#" class="social-link" title="Instagram">📸</a>
+            <a href="#" class="social-link" title="Facebook">👍</a>
+            <a href="#" class="social-link" title="Twitter">🐦</a>
+            <a href="#" class="social-link" title="YouTube">▶</a>
+          </div>
+        </div>
+
+        <!-- Quick Links -->
+        <div class="footer-col">
+          <h4>Quick Links</h4>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#gallery">Gallery</a></li>
+            <li><a href="#contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Menu -->
+        <div class="footer-col">
+          <h4>Our Specials</h4>
+          <ul>
+            <li><a href="#menu">Classic Espresso</a></li>
+            <li><a href="#menu">Cappuccino</a></li>
+            <li><a href="#menu">Cold Brew</a></li>
+            <li><a href="#menu">Masala Chai</a></li>
+            <li><a href="#menu">Chocolate Cake</a></li>
+          </ul>
+        </div>
+
+        <!-- Hours -->
+        <div class="footer-col">
+          <h4>Opening Hours</h4>
+          <ul>
+            <li><a href="#">Mon – Fri: 7:30 AM – 10 PM</a></li>
+            <li><a href="#">Saturday: 8 AM – 11 PM</a></li>
+            <li><a href="#">Sunday: 9 AM – 10 PM</a></li>
+            <li><a href="#">Public Holidays: 9 AM – 9 PM</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2024 Sankalp Coffee. All rights reserved.</span>
+        <span>Made with ☕ in Pune, India</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================
+       JAVASCRIPT
+  ========================================================= -->
+  <script>
+    /* ── STICKY NAV shadow on scroll ─────────────────────── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 40);
+    });
+
+    /* ── ACTIVE NAV LINK on scroll ───────────────────────── */
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          navLinks.forEach(l => l.classList.remove('active'));
+          const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+          if (active) active.classList.add('active');
+        }
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(s => observer.observe(s));
+
+    /* ── MOBILE MENU toggle ──────────────────────────────── */
+    const hamburger   = document.getElementById('menuToggle');
+    const mobileMenu  = document.getElementById('mobileMenu');
+    hamburger.addEventListener('click', () => {
+      hamburger.classList.toggle('open');
+      mobileMenu.classList.toggle('open');
+    });
+    // Close on link click
+    mobileMenu.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        hamburger.classList.remove('open');
+        mobileMenu.classList.remove('open');
+      });
+    });
+
+    /* ── MENU FILTER ─────────────────────────────────────── */
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const menuCards  = document.querySelectorAll('.menu-card');
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        // Toggle active class
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+        menuCards.forEach(card => {
+          if (filter === 'all' || card.dataset.category === filter) {
+            card.style.display = 'block';
+            card.style.animation = 'fadeUp .4s ease both';
+          } else {
+            card.style.display = 'none';
+          }
+        });
+      });
+    });
+
+    /* ── ADD TO CART feedback ────────────────────────────── */
+    document.querySelectorAll('.add-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.textContent = '✓';
+        this.style.background = 'var(--caramel)';
+        setTimeout(() => {
+          this.textContent = '+';
+          this.style.background = 'var(--espresso)';
+        }, 1200);
+      });
+    });
+
+    /* ── CONTACT FORM VALIDATION ─────────────────────────── */
+    const form       = document.getElementById('contactForm');
+    const fnameInput = document.getElementById('fname');
+    const emailInput = document.getElementById('email');
+    const msgInput   = document.getElementById('message');
+    const fnameErr   = document.getElementById('fnameErr');
+    const emailErr   = document.getElementById('emailErr');
+    const msgErr     = document.getElementById('msgErr');
+    const formSuccess= document.getElementById('formSuccess');
+
+    function showError(input, errEl) {
+      input.classList.add('error');
+      errEl.classList.add('show');
+    }
+    function clearError(input, errEl) {
+      input.classList.remove('error');
+      errEl.classList.remove('show');
+    }
+
+    // Live clearing on input
+    fnameInput.addEventListener('input', () => clearError(fnameInput, fnameErr));
+    emailInput.addEventListener('input', () => clearError(emailInput, emailErr));
+    msgInput.addEventListener('input', () => clearError(msgInput, msgErr));
+
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      let valid = true;
+
+      // First Name
+      if (!fnameInput.value.trim()) {
+        showError(fnameInput, fnameErr); valid = false;
+      }
+      // Email
+      const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailReg.test(emailInput.value.trim())) {
+        showError(emailInput, emailErr); valid = false;
+      }
+      // Message
+      if (!msgInput.value.trim()) {
+        showError(msgInput, msgErr); valid = false;
+      }
+
+      if (valid) {
+        form.style.opacity = '0.5';
+        setTimeout(() => {
+          form.reset();
+          form.style.opacity = '1';
+          formSuccess.classList.add('show');
+          setTimeout(() => formSuccess.classList.remove('show'), 5000);
+        }, 800);
+      }
+    });
+
+    /* ── SCROLL REVEAL ───────────────────────────────────── */
+    const revealEls = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          revealObserver.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
